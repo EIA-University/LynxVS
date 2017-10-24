@@ -23,34 +23,45 @@
 <script>
     var treeData =
         {
-            "name": "pepe",
-            "type": "pink",
-            "level": "grey",
+            "name": "Top Level",
+            "value": 10,
+            "type": "black",
+            "level": "#083c40",
+            "icon": "/icons/go/go-original.svg",
             "children": [
                 {
-                    "name": "Es",
-                    "type": "cyan",
-                    "level": "grey",
+                    "name": "Level 2: A",
+                    "value": 5,
+                    "type": "grey",
+                    "level": "#146266",
+                    "icon": "/icons/angularjs/angularjs-original.svg",
                     "children": [
                         {
-                            "name": "El",
-                            "type": "cyan",
-                            "level": "grey"
+                            "name": "Son of A",
+                            "value": 5,
+                            "type": "steelblue",
+                            "icon": "/icons/c/c-plain.svg",
+                            "level": "#5bb8bd"
                         },
                         {
-                            "name": "Mejor",
-                            "type": "cyan",
-                            "level": "grey"
+                            "name": "Daughter of A",
+                            "value": 18,
+                            "type": "steelblue",
+                            "icon": "/icons/php/php-plain.svg",
+                            "level": "#5bb8bd"
                         }
                     ]
                 },
                 {
-                    "name": "yey",
-                    "type": "pink",
-                    "level": "grey"
+                    "name": "Level 2: B",
+                    "value": 10,
+                    "type": "grey",
+                    "icon": "/icons/nodejs/nodejs-plain.svg",
+                    "level": "#146266"
                 }
             ]
         };
+
     // Set the dimensions and margins of the diagram
     var margin = {top: 20, right: 90, bottom: 30, left: 90},
         width = 960 - margin.left - margin.right,
@@ -74,7 +85,7 @@
     root.x0 = height / 2;
     root.y0 = 0;
     // Collapse after the second level
-    root.children.forEach(collapse);
+    //root.children.forEach(collapse);
     update(root);
     // Collapse the node and all it's children
     function collapse(d) {
@@ -105,12 +116,12 @@
             })
             .on('click', click);
         // Add Circle for the nodes
-        nodeEnter.append('circle')
-            .attr('class', 'node')
-            .attr('r', 1e-6)
-            .style("fill", function(d) {
-                return d._children? d.data.type: "white";
-            });
+        nodeEnter.append("image")
+            .attr("xlink:href", function(d) { return d.data.icon; })
+            .attr("x", "-12px")
+            .attr("y", "-12px")
+            .attr("width", "20px")
+            .attr("height", "20px");
         // Add labels for the nodes
         nodeEnter.append('text')
             .attr("dy", ".35em")
@@ -130,14 +141,11 @@
                 return "translate(" + d.y + "," + d.x + ")";
             });
         // Update the node attributes and style
-        nodeUpdate.select('circle.node')
-            .attr('r', 10)
-            .style("fill", function(d) {
-                return d._children? d.data.type: "white";
-            })
-            .style("stroke", function (d) {
-                return d.data.level;
-            })
+        nodeUpdate.select('image')
+            .attr("x", "-12px")
+            .attr("y", "-12px")
+            .attr("width", "20px")
+            .attr("height", "20px")
             .attr('cursor', 'pointer');
         // Remove any exiting nodes
         var nodeExit = node.exit().transition()
@@ -147,8 +155,11 @@
             })
             .remove();
         // On exit reduce the node circles size to 0
-        nodeExit.select('circle')
-            .attr('r', 1e-6);
+        nodeExit.select('image')
+            .attr("x", "0px")
+            .attr("y", "0px")
+            .attr("width", "0px")
+            .attr("height", "0px");
         // On exit reduce the opacity of text labels
         nodeExit.select('text')
             .style('fill-opacity', 1e-6);
@@ -195,7 +206,7 @@
             C ${(s.y + d.y) / 2} ${s.x},
               ${(s.y + d.y) / 2} ${d.x},
               ${d.y} ${d.x}`
-            return path
+            return path;
         }
         // Toggle children on click.
         function click(d) {

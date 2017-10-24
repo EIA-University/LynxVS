@@ -25,7 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 
-app.use('/js', express.static(__dirname + '/node_modules/d3/build')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/node_modules/d3/build')); // redirect d3 JS
+app.use('/icons', express.static(__dirname + '/node_modules/devicon/icons')); // redirect to devicon Icons
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
