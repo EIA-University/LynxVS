@@ -1,0 +1,38 @@
+/* Custom Stylesheet */
+
+.icon-block {
+    padding: 0 15px;
+}
+.icon-block .material-icons {
+    font-size: inherit;
+}
+
+.node circle {
+    fill: #fff;
+    stroke: green;
+    stroke-width: 3px;
+}
+
+.node text {
+    font: 20px sans-serif;
+}
+
+.link {
+    fill: none;
+    stroke: purple;
+    stroke-width: 2px;
+}
+
+.logo #logo-container {
+    height: 250px;
+}
+
+header, main, footer {
+    padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+        padding-left: 0;
+    }
+}

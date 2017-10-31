@@ -1,224 +1,153 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
-<style>
-    .node circle {
-        fill: #fff;
-        stroke: green;
-        stroke-width: 3px;
-    }
-    .node text {
-        font: 12px sans-serif;
-    }
-    .link {
-        fill: none;
-        stroke: purple;
-        stroke-width: 2px;
-    }
-</style>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title><%=title%></title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/materialize/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/devicon.css" type="text/css" rel="stylesheet" />
+</head>
 
 <body>
+<header>
+    <nav class="top-nav orange darken-3" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Lynx VS</a>
+            <ul class="right">
+                <li>
+                    <a href="/addProject">
+                        <i class="material-icons">settings</i>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="material-icons">notifications</i>
+                    </a>
+                </li>
+                <li>
+                    <a id="screenToggle" class="tooltipped" data-position="down" data-delay="50" data-tooltip="Toggle/Exit Full Screen">
+                        <i class="material-icons">fullscreen</i>
+                    </a>
+                </li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
 
-<!-- load the d3.js library -->
-<script src="/js/d3.min.js"></script>
-<script>
-    var treeData =
-        {
-            "name": "Top Level",
-            "value": 10,
-            "type": "black",
-            "level": "#083c40",
-            "icon": "/icons/go/go-original.svg",
-            "children": [
-                {
-                    "name": "Level 2: A",
-                    "value": 5,
-                    "type": "grey",
-                    "level": "#146266",
-                    "icon": "/icons/angularjs/angularjs-original.svg",
-                    "children": [
-                        {
-                            "name": "Son of A",
-                            "value": 5,
-                            "type": "steelblue",
-                            "icon": "/icons/c/c-plain.svg",
-                            "level": "#5bb8bd"
-                        },
-                        {
-                            "name": "Daughter of A",
-                            "value": 18,
-                            "type": "steelblue",
-                            "icon": "/icons/php/php-plain.svg",
-                            "level": "#5bb8bd"
-                        }
-                    ]
-                },
-                {
-                    "name": "Level 2: B",
-                    "value": 10,
-                    "type": "grey",
-                    "icon": "/icons/nodejs/nodejs-plain.svg",
-                    "level": "#146266"
-                }
-            ]
-        };
+    <ul id="nav-mobile" class="side-nav fixed grey lighten-3">
+        <li class="logo"><a id="logo-container" href="/" class="brand-logo">
+                <object id="front-page-logo" type="image/svg+xml" data="/images/lynx.svg">Your browser does not support SVG</object></a>
+        </li>
+        <li class="bold active"><a href="about.html" class="waves-effect waves-orange">About</a></li>
+    </ul>
+</header>
 
-    // Set the dimensions and margins of the diagram
-    var margin = {top: 20, right: 90, bottom: 30, left: 90},
-        width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
-    // append the svg object to the body of the page
-    // appends a 'group' element to 'svg'
-    // moves the 'group' element to the top left margin
-    var svg = d3.select("body").append("svg")
-        .attr("width", width + margin.right + margin.left)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate("
-            + margin.left + "," + margin.top + ")");
-    var i = 0,
-        duration = 750,
-        root;
-    // declares a tree layout and assigns the size
-    var treemap = d3.tree().size([height, width]);
-    // Assigns parent, children, height, depth
-    root = d3.hierarchy(treeData, function(d) { return d.children; });
-    root.x0 = height / 2;
-    root.y0 = 0;
-    // Collapse after the second level
-    //root.children.forEach(collapse);
-    update(root);
-    // Collapse the node and all it's children
-    function collapse(d) {
-        if(d.children) {
-            d._children = d.children
-            d._children.forEach(collapse)
-            d.children = null
-        }
-    }
+<main>
+    <div class="container">
+        <div class="section">
+            <!-- Tree Area -->
+            <div id="treeArea" ></div>
+            <!--   Icon Section   -->
+            <div class="row">
+                <div class="col s12 m4">
+                    <% include partials/tree.ejs %>
+                    <div class="icon-block">
+                        <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+                        <h5 class="center">Speeds up development</h5>
 
-    function update(source) {
-        // Assigns the x and y position for the nodes
-        var treeData = treemap(root);
-        // Compute the new tree layout.
-        var nodes = treeData.descendants(),
-            links = treeData.descendants().slice(1);
-        // Normalize for fixed-depth.
-        nodes.forEach(function(d){ d.y = d.depth * 180});
-        // ****************** Nodes section ***************************
-        // Update the nodes...
-        var node = svg.selectAll('g.node')
-            .data(nodes, function(d) {return d.id || (d.id = ++i); });
-        // Enter any new modes at the parent's previous position.
-        var nodeEnter = node.enter().append('g')
-            .attr('class', 'node')
-            .attr("transform", function(d) {
-                return "translate(" + source.y0 + "," + source.x0 + ")";
-            })
-            .on('click', click);
-        // Add Circle for the nodes
-        nodeEnter.append("image")
-            .attr("xlink:href", function(d) { return d.data.icon; })
-            .attr("x", "-12px")
-            .attr("y", "-12px")
-            .attr("width", "20px")
-            .attr("height", "20px");
-        // Add labels for the nodes
-        nodeEnter.append('text')
-            .attr("dy", ".35em")
-            .attr("x", function(d) {
-                return d.children || d._children ? -13 : 13;
-            })
-            .attr("text-anchor", function(d) {
-                return d.children || d._children ? "end" : "start";
-            })
-            .text(function(d) { return d.data.name; });
-        // UPDATE
-        var nodeUpdate = nodeEnter.merge(node);
-        // Transition to the proper position for the node
-        nodeUpdate.transition()
-            .duration(duration)
-            .attr("transform", function(d) {
-                return "translate(" + d.y + "," + d.x + ")";
-            });
-        // Update the node attributes and style
-        nodeUpdate.select('image')
-            .attr("x", "-12px")
-            .attr("y", "-12px")
-            .attr("width", "20px")
-            .attr("height", "20px")
-            .attr('cursor', 'pointer');
-        // Remove any exiting nodes
-        var nodeExit = node.exit().transition()
-            .duration(duration)
-            .attr("transform", function(d) {
-                return "translate(" + source.y + "," + source.x + ")";
-            })
-            .remove();
-        // On exit reduce the node circles size to 0
-        nodeExit.select('image')
-            .attr("x", "0px")
-            .attr("y", "0px")
-            .attr("width", "0px")
-            .attr("height", "0px");
-        // On exit reduce the opacity of text labels
-        nodeExit.select('text')
-            .style('fill-opacity', 1e-6);
-        // ****************** links section ***************************
-        // Update the links...
-        var link = svg.selectAll('path.link')
-            .data(links, function(d) { return d.id; })
-            .style("stroke", function (d) {
-                return d.data.level;
-            });
-        // Enter any new links at the parent's previous position.
-        var linkEnter = link.enter().insert('path', "g")
-            .attr("class", "link")
-            .attr('d', function(d){
-                var o = {x: source.x0, y: source.y0}
-                return diagonal(o, o)
-            })
-            .style("stroke", function (d) {
-                return d.data.level;
-            });
-        // UPDATE
-        var linkUpdate = linkEnter.merge(link);
-        // Transition back to the parent element position
-        linkUpdate.transition()
-            .duration(duration)
-            .attr('d', function(d){ return diagonal(d, d.parent) }) ;
+                        <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+                    </div>
+                </div>
 
-        // Remove any exiting links
-        var linkExit = link.exit().transition()
-            .duration(duration)
-            .attr('d', function(d) {
-                var o = {x: source.x, y: source.y}
-                return diagonal(o, o)
-            })
-            .remove();
-        // Store the old positions for transition.
-        nodes.forEach(function(d){
-            d.x0 = d.x;
-            d.y0 = d.y;
-        });
-        // Creates a curved (diagonal) path from parent to the child nodes
-        function diagonal(s, d) {
-            path = `M ${s.y} ${s.x}
-            C ${(s.y + d.y) / 2} ${s.x},
-              ${(s.y + d.y) / 2} ${d.x},
-              ${d.y} ${d.x}`
-            return path;
-        }
-        // Toggle children on click.
-        function click(d) {
-            if (d.children) {
-                d._children = d.children;
-                d.children = null;
-            } else {
-                d.children = d._children;
-                d._children = null;
-            }
-            update(d);
-        }
-    }
-</script>
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+                        <h5 class="center">User Experience Focused</h5>
+
+                        <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
+                        <h5 class="center">Easy to work with</h5>
+
+                        <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <br><br>
+    </div>
+    <!-- Le Fab -->
+    <div class="fixed-action-btn">
+        <a id="fab" class="btn-floating btn-large orange darken-3 tooltipped" data-position="left" data-delay="50" data-tooltip="Add repository">
+            <i class="large material-icons">add</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="New version"><i class="material-icons">forward</i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="New Release"><i class="devicon-git-plain"></i></a></li>
+        </ul>
+    </div>
+
+    <!-- Tap Target Structure -->
+    <div class="tap-target" data-activates="fab">
+        <div class="tap-target-content">
+            <h5>Quick Actions</h5>
+            <p>From here you can add new repositories, add a release and create a new version!</p>
+        </div>
+    </div>
+
+</main>
+
+    <footer class="page-footer orange">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Company Bio</h5>
+                    <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Settings</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Link 1</a></li>
+                        <li><a class="white-text" href="#!">Link 2</a></li>
+                        <li><a class="white-text" href="#!">Link 3</a></li>
+                        <li><a class="white-text" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Connect</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Link 1</a></li>
+                        <li><a class="white-text" href="#!">Link 2</a></li>
+                        <li><a class="white-text" href="#!">Link 3</a></li>
+                        <li><a class="white-text" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!--  Scripts-->
+    <!--<script src="/js/jquery.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="/materialize/js/materialize.min.js"></script>
+    <script src="/js/init.js"></script>
+
+
 </body>
+</html>

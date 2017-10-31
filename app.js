@@ -25,8 +25,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 
-app.use('/js', express.static(__dirname + '/node_modules/d3/build')); // redirect d3 JS
-app.use('/icons', express.static(__dirname + '/node_modules/devicon/icons')); // redirect to devicon Icons
+app.use('/js', express.static(__dirname + '/node_modules/d3/build')); // redirect d3 js
+app.use('/icons', express.static(__dirname + '/node_modules/devicon/icons')); // redirect to devicon icons
+app.use('/icons/custom', express.static(__dirname + '/public/images/icons')); // redirect to custom icons
+app.use('/materialize', express.static(__dirname + '/node_modules/materialize-css/dist')); // redirect to materialize css
+app.use('/css', express.static(__dirname + '/node_modules/devicon')); // devicon icons font
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect to bootstrap css
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect to bootstrap js
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect to jquery
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
