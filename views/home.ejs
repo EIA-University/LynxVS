@@ -10,33 +10,17 @@
     <link href="/materialize/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="/css/devicon.css" type="text/css" rel="stylesheet" />
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
 <header>
-    <nav class="top-nav orange darken-3" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Lynx VS</a>
-            <ul class="right">
-                <li>
-                    <a href="/addProject">
-                        <i class="material-icons">settings</i>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <i class="material-icons">notifications</i>
-                    </a>
-                </li>
-                <li>
-                    <a id="screenToggle" class="tooltipped" data-position="down" data-delay="50" data-tooltip="Toggle/Exit Full Screen">
-                        <i class="material-icons">fullscreen</i>
-                    </a>
-                </li>
-            </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-        </div>
-    </nav>
+    <!-- NavBar -->
+    <% include partials/nav.ejs %>
 
+    <!-- Slide bar -->
     <ul id="nav-mobile" class="side-nav fixed grey lighten-3">
         <li class="logo"><a id="logo-container" href="/" class="brand-logo">
                 <object id="front-page-logo" type="image/svg+xml" data="/images/lynx.svg">Your browser does not support SVG</object></a>
@@ -45,6 +29,7 @@
     </ul>
 </header>
 
+<!-- Content -->
 <main>
     <div class="container">
         <div class="section">
@@ -86,7 +71,7 @@
     </div>
     <!-- Le Fab -->
     <div class="fixed-action-btn">
-        <a id="fab" class="btn-floating btn-large orange darken-3 tooltipped" data-position="left" data-delay="50" data-tooltip="Add repository">
+        <a href="/repos/add" id="fab" class="btn-floating btn-large orange darken-3 tooltipped" data-position="left" data-delay="50" data-tooltip="Add repository">
             <i class="large material-icons">add</i>
         </a>
         <ul>
@@ -105,49 +90,45 @@
 
 </main>
 
-    <footer class="page-footer orange">
+<footer class="page-footer orange">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Company Bio</h5>
+                <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">Settings</h5>
+                <ul>
+                    <li><a class="white-text" href="#!">Link 1</a></li>
+                    <li><a class="white-text" href="#!">Link 2</a></li>
+                    <li><a class="white-text" href="#!">Link 3</a></li>
+                    <li><a class="white-text" href="#!">Link 4</a></li>
+                </ul>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">Connect</h5>
+                <ul>
+                    <li><a class="white-text" href="#!">Link 1</a></li>
+                    <li><a class="white-text" href="#!">Link 2</a></li>
+                    <li><a class="white-text" href="#!">Link 3</a></li>
+                    <li><a class="white-text" href="#!">Link 4</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
         <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Company Bio</h5>
-                    <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
-                </div>
-                <div class="col l3 s12">
-                    <h5 class="white-text">Settings</h5>
-                    <ul>
-                        <li><a class="white-text" href="#!">Link 1</a></li>
-                        <li><a class="white-text" href="#!">Link 2</a></li>
-                        <li><a class="white-text" href="#!">Link 3</a></li>
-                        <li><a class="white-text" href="#!">Link 4</a></li>
-                    </ul>
-                </div>
-                <div class="col l3 s12">
-                    <h5 class="white-text">Connect</h5>
-                    <ul>
-                        <li><a class="white-text" href="#!">Link 1</a></li>
-                        <li><a class="white-text" href="#!">Link 2</a></li>
-                        <li><a class="white-text" href="#!">Link 3</a></li>
-                        <li><a class="white-text" href="#!">Link 4</a></li>
-                    </ul>
-                </div>
-            </div>
+            Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
         </div>
-        <div class="footer-copyright">
-            <div class="container">
-                Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-            </div>
-        </div>
-    </footer>
-
+    </div>
+</footer>
 
     <!--  Scripts-->
-    <!--<script src="/js/jquery.min.js"></script>-->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="/materialize/js/materialize.min.js"></script>
-    <script src="/js/init.js"></script>
-
+    <script src="/js/home.js"></script>
 
 </body>
 </html>

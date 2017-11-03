@@ -27,6 +27,10 @@
     height: 250px;
 }
 
+.folderClick {
+    cursor: pointer;
+}
+
 header, main, footer {
     padding-left: 300px;
 }

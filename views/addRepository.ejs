@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title><%=title%></title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/materialize/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/devicon.css" type="text/css" rel="stylesheet" />
+
+    <!-- Scripts -->
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+<header>
+    <% include partials/nav.ejs %>
+
+    <ul id="nav-mobile" class="side-nav fixed grey lighten-3">
+        <li class="logo"><a id="logo-container" href="/" class="brand-logo">
+                <object id="front-page-logo" type="image/svg+xml" data="/images/lynx.svg">Your browser does not support SVG</object></a>
+        </li>
+        <li class="bold active"><a href="about.html" class="waves-effect waves-orange">About</a></li>
+    </ul>
+</header>
+
+<main>
+    <div class="container">
+        <div class="section">
+            <h2 class="header">Path</h2>
+            <div class="iframe_wrap" id="folderB">
+                <iframe id="pepe" src="/pepe" height="400" width="100%"></iframe>
+            </div>
+            <div class="row">
+                <nav class="red iframe_wrap">
+                    <div class="nav-wrapper">
+                        <div class="col s12" id="breadcrumb">
+                            <a class="breadcrumb">home</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <form method="post" action="/addRepo" id="formAddRepo">
+            <div class="section">
+                <h2>Info</h2>
+                <div class="row">
+                    <div class="input-field col s6 large">
+                        <input id="name" name="name" type="text" class="validate" required>
+                        <label class="active" for="name">Repo Name</label>
+                    </div>
+                    <div class="input-field col s6 large">
+                        <input id="version" name="version" type="text" class="validate" required>
+                        <label class="active" for="version">Current Version</label>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <a href="/" class="waves-effect waves-light btn red">cancel</a>
+                <button type="submit" class="waves-effect waves-light btn green" id="sub">Add Repo!</button>
+            </div>
+        </form>
+    </div>
+
+</main>
+
+<!--  Scripts -->
+<script src="/js/jquery.iframetracker.js"></script>
+<script src="/materialize/js/materialize.min.js"></script>
+<script src="/js/addRepo.js"></script>
+
+</body>
+</html>
