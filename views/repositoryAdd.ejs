@@ -19,11 +19,24 @@
 <header>
     <% include partials/nav.ejs %>
 
+    <!-- Slide bar -->
     <ul id="nav-mobile" class="side-nav fixed grey lighten-3">
         <li class="logo"><a id="logo-container" href="/" class="brand-logo">
                 <object id="front-page-logo" type="image/svg+xml" data="/images/lynx.svg">Your browser does not support SVG</object></a>
         </li>
-        <li class="bold active"><a href="about.html" class="waves-effect waves-orange">About</a></li>
+        <li class="bold"><a href="/" class="waves-effect waves-orange">Home</a></li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li class="bold"><a class="collapsible-header active waves-effect waves-orange">Repositories</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li class="active orange"><a>Add Repository</a></li>
+                            <li><a href="/repos/manage">Manage Repository</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
     </ul>
 </header>
 
