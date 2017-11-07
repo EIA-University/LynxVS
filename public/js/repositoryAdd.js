@@ -25,11 +25,26 @@ $(function(){
 
     var form = $("#formAddRepo");
 
-    form.submit(function(eventObj) {;
+    form.submit(function(eventObj) {
+
+        var tags = [];
+        var oTags = $('.chips').material_chip('data');
+
+        for (var i = 0; i < oTags.length; i++) {
+            tags[i] = oTags[i].tag;
+        }
+
         $('<input />').attr('type', 'hidden')
             .attr('name', "path")
             .attr('value', path)
             .appendTo(form);
+        // tags
+        $('<input />').attr('type', 'hidden')
+            .attr('name', "tags")
+            .attr('value',  JSON.stringify(tags))
+            .appendTo(form);
         return true;
     });
+
+    $('.chips').material_chip();
 }); // end of document ready

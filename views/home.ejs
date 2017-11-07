@@ -12,7 +12,7 @@
     <link href="/css/devicon.css" type="text/css" rel="stylesheet" />
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -25,7 +25,19 @@
         <li class="logo"><a id="logo-container" href="/" class="brand-logo">
                 <object id="front-page-logo" type="image/svg+xml" data="/images/lynx.svg">Your browser does not support SVG</object></a>
         </li>
-        <li class="bold active"><a href="about.html" class="waves-effect waves-orange">About</a></li>
+        <li class="bold active"><a class="waves-effect waves-orange">Home</a></li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li class="bold"><a class="collapsible-header  waves-effect waves-orange">Repositories</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="/repos/add">Add Repository</a></li>
+                            <li><a href="/repos/manage">Manage Repository</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
     </ul>
 </header>
 
@@ -69,16 +81,9 @@
         </div>
         <br><br>
     </div>
-    <!-- Le Fab -->
-    <div class="fixed-action-btn">
-        <a href="/repos/add" id="fab" class="btn-floating btn-large orange darken-3 tooltipped" data-position="left" data-delay="50" data-tooltip="Add repository">
-            <i class="large material-icons">add</i>
-        </a>
-        <ul>
-            <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="New version"><i class="material-icons">forward</i></a></li>
-            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="New Release"><i class="devicon-git-plain"></i></a></li>
-        </ul>
-    </div>
+
+    <!-- Fab -->
+    <% include partials/fab.ejs %>
 
     <!-- Tap Target Structure -->
     <div class="tap-target" data-activates="fab">

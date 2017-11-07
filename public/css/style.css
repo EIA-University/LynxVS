@@ -40,3 +40,24 @@ header, main, footer {
         padding-left: 0;
     }
 }
+
+#reveal-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+div.ppTitle > h2{
+    display: inline-block;
+}
+div.ppTitle > span{
+    margin-left: 10px;
+}
+
+.collapsible-header > span {
+    margin-left: 10px;
+}
+
+.collapsible-body > a {
+    margin-left: 20px;
+}

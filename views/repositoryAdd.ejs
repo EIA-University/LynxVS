@@ -42,25 +42,10 @@
 
 <main>
     <div class="container">
-        <div class="section">
-            <h2 class="header">Path</h2>
-            <div class="iframe_wrap" id="folderB">
-                <iframe id="pepe" src="/pepe" height="400" width="100%"></iframe>
-            </div>
-            <div class="row">
-                <nav class="red iframe_wrap">
-                    <div class="nav-wrapper">
-                        <div class="col s12" id="breadcrumb">
-                            <a class="breadcrumb">home</a>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
 
-        <form method="post" action="/addRepo" id="formAddRepo">
+        <form method="post" action="/repos/add" id="formAddRepo">
             <div class="section">
-                <h2>Info</h2>
+                <h2>Fill Out Repo Info!</h2>
                 <div class="row">
                     <div class="input-field col s6 large">
                         <input id="name" name="name" type="text" class="validate" required>
@@ -72,6 +57,46 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Folder Select -->
+            <div class="section">
+                <h5 class="grey-text text-darken-2">Path to Source Code</h5>
+                <% include partials/folderSelector.ejs %>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="section">
+                <!-- GitHub Repo -->
+                <div class="row">
+                    <div class="input-field col s9">
+                        <input id="remote" name="remote" type="text" class="validate" required>
+                        <label class="active" for="name">GitHub Remote</label>
+                    </div>
+                    <div class="col s3">
+                        <input type="checkbox" id="isUpdated" name="isUpdated" />
+                        <label for="isUpdated">Current Git Version?</label>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="description" name="description"
+                                  class="materialize-textarea" data-length="200" required></textarea>
+                        <label for="textarea1">Description</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <div class="chips"></div>
+                        <label for="chips">Tags</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Submit & Cancel Buttons -->
             <div class="right">
                 <a href="/" class="waves-effect waves-light btn red">cancel</a>
                 <button type="submit" class="waves-effect waves-light btn green" id="sub">Add Repo!</button>
@@ -84,7 +109,7 @@
 <!--  Scripts -->
 <script src="/js/jquery.iframetracker.js"></script>
 <script src="/materialize/js/materialize.min.js"></script>
-<script src="/js/addRepo.js"></script>
+<script src="/js/repositoryAdd.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title><%=title%></title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/materialize/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/devicon.css" type="text/css" rel="stylesheet" />
+
+    <!-- Scripts -->
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+<header>
+    <% include partials/nav.ejs %>
+
+    <!-- Slide bar -->
+    <ul id="nav-mobile" class="side-nav fixed grey lighten-3">
+        <li class="logo"><a id="logo-container" href="/" class="brand-logo">
+                <object id="front-page-logo" type="image/svg+xml" data="/images/lynx.svg">Your browser does not support SVG</object></a>
+        </li>
+        <li class="bold"><a href="/" class="waves-effect waves-orange">Home</a></li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li class="bold"><a class="collapsible-header active waves-effect waves-orange">Repositories</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="/repos/add">Add Repository</a></li>
+                            <li class="active orange"><a>Manage Repository</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<main>
+    <div class="container">
+
+        <% var j = true;%>
+        <% repoChunks.forEach(function (chunk) { %>
+            <div class="row">
+            <% if (j) {%>
+                <%var i = 0 %>
+                <%chunk.forEach(function (repo) {%>
+                    <%if (i++ === 0) {%>
+                        <div class="col s12 m5 l5">
+                            <div class="card" style="overflow: visible;">
+                                <div class="card-image waves-effect waves-block waves-light">
+                                    <img class="activator" src="<%= repo.image%>">
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title activator grey-text text-darken-4"><%=repo.name%><i class="material-icons right">more_vert</i></span>
+                                    <div class="grey-text">Latest Version: <a href="#"><%=repo.latestVersion%></a></div>
+                                </div>
+
+                                <div class="card-reveal" style="display: none; transform: translateY(0px);">
+                                    <span class="card-title grey-text text-darken-4"><%=repo.name%><i class="material-icons right">close</i></span>
+                                    <p><%=repo.description%></p>
+                                    <div class="grey-text">Latest Version: <a href="#"><%=repo.latestVersion%></a></div>
+                                    <div id="reveal-bottom" class="card-action">
+                                        <a href="/repos/details/<%=repo.id%>">DETAILS</a>
+                                        <a href="/repos/delete/<%=repo.id%>">DELETE</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } else {%>
+                        <div class="col s12 m7 l7">
+                            <div class="card horizontal">
+                                <div class="card-image">
+                                    <img src="/images/horizontal.jpeg">
+                                </div>
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <p><b><%=repo.name%></b></p>
+                                        <p><%=repo.description%></p>
+                                        <div class="grey-text">Latest Version: <a href="#"><%=repo.latestVersion%></a></div>
+                                    </div>
+                                    <div class="card-action">
+                                        <a href="/repos/details/<%=repo.id%>">DETAILS</a>
+                                        <a href="/repos/delete/<%=repo.id%>">DELETE</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                <% }) %>
+            <% } else { %>
+                <%chunk.forEach(function (repo) {%>
+                    <div class="col s12 m4 l4">
+                        <div class="card" style="overflow: visible;">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="<%= repo.image%>">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4"><%=repo.name%><i class="material-icons right">more_vert</i></span>
+                                <div class="grey-text">Latest Version: <a href="#"><%=repo.latestVersion%></a></div>
+                            </div>
+
+                            <div class="card-reveal" style="display: none; transform: translateY(0px);">
+                                <span class="card-title grey-text text-darken-4"><%=repo.name%><i class="material-icons right">close</i></span>
+                                <p><%=repo.description%></p>
+                                <div class="grey-text">Latest Version: <a href="#"><%=repo.latestVersion%></a></div>
+                                <div id="reveal-bottom" class="card-action">
+                                    <a href="/repos/details/<%=repo.id%>">DETAILS</a>
+                                    <a href="/repos/delete/<%=repo.id%>">DELETE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } j=!j; %>
+            </div>
+        <% }) %>
+    </div>
+    <!-- Fab -->
+    <% include partials/fab.ejs %>
+</main>
+
+
+<script src="/materialize/js/materialize.min.js"></script>
+
+</body>
+</html>

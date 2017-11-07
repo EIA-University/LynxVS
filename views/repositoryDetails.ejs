@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title><%=title%></title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/materialize/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/devicon.css" type="text/css" rel="stylesheet" />
+
+    <!-- Scripts -->
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+<header>
+    <% include partials/nav.ejs %>
+
+    <!-- Slide bar -->
+    <ul id="nav-mobile" class="side-nav fixed grey lighten-3">
+        <li class="logo"><a id="logo-container" href="/" class="brand-logo">
+                <object id="front-page-logo" type="image/svg+xml" data="/images/lynx.svg">Your browser does not support SVG</object></a>
+        </li>
+        <li class="bold"><a href="/" class="waves-effect waves-orange">Home</a></li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li class="bold"><a class="collapsible-header active waves-effect waves-orange">Repositories</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="/repos/add">Add Repository</a></li>
+                            <li class="active orange"><a href="/repos/manage">Manage Repository</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<main>
+    <div class="container">
+        <div class="section">
+            <div class="ppTitle">
+                <h2><%=repo.name%></h2>
+                <% if (repo.gitHubVersion) { %>
+                    <span class="grey-text text-darken-2">
+                        v<%=repo.gitHubVersion.major%>.<%=repo.gitHubVersion.minor%>.<%=repo.gitHubVersion.patch%>
+                    </span>
+                <% } %>
+                <span class="grey-text"><%= repo.remote %></span>
+            </div>
+           <!--/-->
+            <p class="flow-text"><%=repo.description%></p>
+
+            <h5>Tags</h5>
+            <div class="chips">
+                <% repo.tags.forEach(function (chip) { %>
+                    <div class="chip">
+                        <%=chip%>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+
+        <div class="section">
+            <h4>Versions</h4>
+            <h5>Latest Version <%=lVersion%></h5>
+            <!-- Tree Area -->
+            <div id="treeArea" ></div>
+            <% include partials/tree.ejs %>
+
+            <h5>All Versions</h5>
+            <ul class="collapsible" data-collapsible="accordion">
+                <% repo.versions.forEach(function (version) { %>
+                    <li>
+                        <div class="collapsible-header">
+                            <b><%=version.major%>.<%=version.minor%>.<%=version.patch%></b>
+                            <span><%= version.comment%></span>
+                            <% if (repo.gitHubVersion._id.toString().localeCompare(version._id.toString()) == 0) { %>
+                                <span><i class="devicon-git-plain"></i></span>
+                            <% } %>
+
+                        </div>
+                        <div class="collapsible-body">
+                            <span>
+                                <b class="grey-text">path: </b><%= version.path%>
+                            </span>
+                            <a href="/versions/details/<%=version._id%>">DETAILS</a>
+                            <a href="/versions/delete/<%=version._id%>" class="red-text">DELETE</a>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+    <!-- Fab -->
+    <% include partials/fab.ejs %>
+</main>
+
+
+<script src="/materialize/js/materialize.min.js"></script>
+
+</body>
+</html>

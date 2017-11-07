@@ -3,7 +3,7 @@
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Lynx VS</a>
         <ul class="right">
             <li>
-                <a href="/addProject">
+                <a class="dropdown-button dropdown-menu" data-activates='dropdown'>
                     <i class="material-icons">settings</i>
                 </a>
             </li>
@@ -21,6 +21,11 @@
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
 </nav>
+
+<!-- Dropdown Structure -->
+<ul id='dropdown' class='dropdown-content'>
+    <li><a href="/config/gitSettings"><i class="devicon-git-plain">Git</i></a></li>
+</ul>
 
 <!-- Script for FullScreen -->
 <script>
