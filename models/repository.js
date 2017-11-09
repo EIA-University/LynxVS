@@ -73,6 +73,18 @@ repositorySchema.methods.getLatestVersionMajorMinor = function (major, minor,  c
     })
 };
 
+// returns a version by its id
+repositorySchema.methods.getVersion = function (id, cb) {
+    this.model('Repository').aggregate([
+        {$unwind: "$versions"},
+        {$match: {"_id": this._id, 'versions._id': mongoose.Types.ObjectId(id)}},
+        {$project: {'versions': 1}}
+    ], function (err, res) {
+        return cb(err,  new Version(res[0].versions));
+    });
+};
+
+
 module.exports = {
     schema: repositorySchema,
     model: mongoose.model('Repository', repositorySchema)

@@ -88,7 +88,7 @@
                             <span>
                                 <b class="grey-text">path: </b><%= version.path%>
                             </span>
-                            <a href="/versions/details/<%=version._id%>">DETAILS</a>
+                            <a href="/versions/details/<%=repo._id%>/<%=version._id%>">DETAILS</a>
                             <a href="/versions/delete/<%=version._id%>" class="red-text">DELETE</a>
                         </div>
                     </li>
@@ -96,6 +96,7 @@
             </ul>
         </div>
     </div>
+
     <!-- Fab -->
     <% include partials/fab.ejs %>
 </main>

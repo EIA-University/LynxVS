@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title><%=title%></title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/materialize/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/devicon.css" type="text/css" rel="stylesheet" />
+
+    <!-- Scripts -->
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+<header>
+    <% include partials/nav.ejs %>
+
+    <!-- Slide bar -->
+    <ul id="nav-mobile" class="side-nav fixed grey lighten-3">
+        <li class="logo"><a id="logo-container" href="/" class="brand-logo">
+                <object id="front-page-logo" type="image/svg+xml" data="/images/lynx.svg">Your browser does not support SVG</object></a>
+        </li>
+        <li class="bold"><a href="/" class="waves-effect waves-orange">Home</a></li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li class="bold"><a class="collapsible-header active waves-effect waves-orange">Repositories</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="/repos/add">Add Repository</a></li>
+                            <li class="active orange"><a href="/repos/manage">Manage Repository</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<main>
+    <div class="container">
+        <div class="section">
+            <div class="ppTitle">
+                <h2 class="title" ><a href="/repos/details/<%=repoId%>"><%=repoName%></a></h2>
+                <span class="grey-text text-darken-2 content flow-text">Version <%=version.major%>.<%=version.minor%>.<%=version.patch%></span>
+                <span class="grey-text content"><%=version.path%></span>
+                <% if (isGit) { %>
+                    <span class="new badge red" data-badge-caption="Current Git Version"></span>
+                <% } %>
+                <% if (isLatest) { %>
+                <span class="new badge green" data-badge-caption="Latest Version"></span>
+                <% } %>
+            </div>
+            <p class="flow-text"><%=version.comment%></p>
+        </div>
+
+        <div class="section">
+            <!-- Tree Area -->
+            <div id="treeArea" ></div>
+            <% include partials/tree.ejs %>
+        </div>
+    </div>
+
+    <!-- Fab -->
+    <div class="fixed-action-btn">
+        <a href="#modal1" id="fab" class="btn-floating btn-large light-blue darken-3 tooltipped modal-trigger" data-position="left" data-delay="50" data-tooltip="Bump Version">
+            <i class="large material-icons">forward</i>
+        </a>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>Select What to Bump!</h4>
+            <ul class="collection">
+                <li class="collection-item avatar">
+                    <a href="/versions/bump/patch/<%= version._id %>" class="black-text">
+                        <i class="material-icons circle cyan">forward</i>
+                        <span class="title"><b>Bump Patch</b></span>
+                        <p>First Line <br>
+                            Second Line
+                        </p>
+                    </a>
+                </li>
+                <li class="collection-item avatar">
+                    <a href="/versions/bump/minor/<%= version._id %>" class="black-text">
+                        <i class="material-icons circle pink">forward</i>
+                        <span class="title"><b>Bump Minor</b></span>
+                        <p>First Line <br>
+                            Second Line
+                        </p>
+                    </a>
+                </li>
+                <li class="collection-item avatar">
+                    <a href="/versions/bump/major/<%= version._id %>" class="black-text">
+                        <i class="material-icons circle purple">forward</i>
+                        <span class="title"><b>Bump Major</b></span>
+                        <p>First Line <br>
+                            Second Line
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</main>
+
+
+<script src="/materialize/js/materialize.min.js"></script>
+<script src="/js/versionDetails.js"></script>
+
+</body>
+</html>

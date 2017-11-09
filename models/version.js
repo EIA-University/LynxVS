@@ -30,7 +30,6 @@ versionSchema.methods.getFullVersion = function () {
     return this.major + '.' + this.minor + '.' + this.patch;
 };
 
-
 module.exports = {
     model: mongoose.model('Version', versionSchema),
     schema: versionSchema

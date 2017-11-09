@@ -104,7 +104,6 @@ router.get('/manage', function (req, res, next) {
 });
 
 /* GET Repo Details */
-
 router.get('/details/:id', function (req, res, next) {
    Repository.findOne({_id: req.params.id}, function (err, repo) {
        if (err) throw err;
@@ -118,4 +117,14 @@ router.get('/details/:id', function (req, res, next) {
        });
    });
 });
+
+/* GET Delete Repo */
+router.get('/delete/:id', function (req, res, next) {
+    Repository.findOneAndRemove({_id: req.params.id}, function (err, repo) {
+        if (err) throw err;
+        console.log(repo.name + " deleted!");
+        res.redirect('/repos/manage');
+    });
+});
+
 module.exports = router;

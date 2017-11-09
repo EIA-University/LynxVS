@@ -47,12 +47,14 @@ header, main, footer {
     left: 0;
 }
 
-div.ppTitle > h2{
+div.ppTitle > .title {
     display: inline-block;
 }
-div.ppTitle > span{
+
+div.ppTitle > .content{
     margin-left: 10px;
 }
+
 
 .collapsible-header > span {
     margin-left: 10px;

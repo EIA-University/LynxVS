@@ -10,6 +10,7 @@ var mongoose = require('mongoose');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var repos = require('./routes/repos');
+var versions = require('./routes/versions');
 
 var app = express();
 
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/repos', repos);
+app.use('/versions', versions);
 
 app.use('/js', express.static(__dirname + '/node_modules/d3/build')); // redirect d3 js
 app.use('/icons', express.static(__dirname + '/node_modules/devicon/icons')); // redirect to devicon icons
