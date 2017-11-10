@@ -77,29 +77,29 @@
             <h4>Select What to Bump!</h4>
             <ul class="collection">
                 <li class="collection-item avatar">
-                    <a href="/versions/bump/patch/<%= version._id %>" class="black-text">
+                    <a href="/versions/bump/patch/<%= repoId %>/<%= version._id %>" class="black-text">
                         <i class="material-icons circle cyan">forward</i>
                         <span class="title"><b>Bump Patch</b></span>
-                        <p>First Line <br>
-                            Second Line
+                        <p><%= bumpedPatch.major%>.<%= bumpedPatch.minor%>.<%= bumpedPatch.patch%><br>
+                            Introduces a bug fix that is backwards compatible
                         </p>
                     </a>
                 </li>
                 <li class="collection-item avatar">
-                    <a href="/versions/bump/minor/<%= version._id %>" class="black-text">
+                    <a href="/versions/bump/minor/<%= repoId %>/<%= version._id %>" class="black-text">
                         <i class="material-icons circle pink">forward</i>
                         <span class="title"><b>Bump Minor</b></span>
-                        <p>First Line <br>
-                            Second Line
+                        <p><%= bumpedMinor.major%>.<%= bumpedMinor.minor%>.<%= bumpedMinor.patch%><br>
+                            Introduces a new feature that is backwards compatible
                         </p>
                     </a>
                 </li>
                 <li class="collection-item avatar">
-                    <a href="/versions/bump/major/<%= version._id %>" class="black-text">
+                    <a href="/versions/bump/major/<%= repoId %>/<%= version._id %>" class="black-text">
                         <i class="material-icons circle purple">forward</i>
                         <span class="title"><b>Bump Major</b></span>
-                        <p>First Line <br>
-                            Second Line
+                        <p><%= bumpedMajor.major%>.<%= bumpedMajor.minor%>.<%= bumpedMajor.patch%><br>
+                            Introduces a version that is not backwards compatible, major changes!
                         </p>
                     </a>
                 </li>

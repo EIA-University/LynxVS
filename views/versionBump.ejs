@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title><%=title%></title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/materialize/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/devicon.css" type="text/css" rel="stylesheet" />
+
+    <!-- Scripts -->
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+<header>
+    <% include partials/nav.ejs %>
+
+    <!-- Slide bar -->
+    <ul id="nav-mobile" class="side-nav fixed grey lighten-3">
+        <li class="logo"><a id="logo-container" href="/" class="brand-logo">
+                <object id="front-page-logo" type="image/svg+xml" data="/images/lynx.svg">Your browser does not support SVG</object></a>
+        </li>
+        <li class="bold"><a href="/" class="waves-effect waves-orange">Home</a></li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li class="bold"><a class="collapsible-header active waves-effect waves-orange">Repositories</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="/repos/add">Add Repository</a></li>
+                            <li class="active orange"><a href="/repos/manage">Manage Repository</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<main>
+    <div class="container">
+
+        <div class="ppTitle">
+            <h2 class="title" > BUMP <%=bumpType%> <a href="/repos/details/<%=repoId%>"><%=repoName%></a></h2>
+            <span class="grey-text text-darken-2 content flow-text">Version <%=bumped.major%>.<%=bumped.minor%>.<%=bumped.patch%></span>
+        </div>
+
+        <form method="post" action="/versions/bump" id="formBumpVersion">
+
+            <!-- Folder Select -->
+            <div class="section">
+                <h5 class="grey-text text-darken-2">Path to Source Code</h5>
+                <% include partials/folderSelector.ejs %>
+
+                <div class="col s12">
+                    <input type="checkbox" id="copyFromPrevious" name="copyFromPrevious" />
+                    <label for="copyFromPrevious">Copy Contents From Previous Version?</label>
+                </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="section">
+                <!-- Comment -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="comment" name="comment"
+                                  class="materialize-textarea" data-length="200" required></textarea>
+                        <label for="comment">Comment</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- repoId -->
+            <input type="hidden" name="repoId" value="<%=repoId%>">
+
+            <!-- bumpValue Major -->
+            <input type="hidden" name="major" value="<%=bumped.major%>">
+            <!-- bumpValue Minor -->
+            <input type="hidden" name="minor" value="<%=bumped.minor%>">
+            <!-- bumpValue Patch -->
+            <input type="hidden" name="patch" value="<%=bumped.patch%>">
+
+            <!-- Submit & Cancel Buttons -->
+            <div class="right">
+                <a href="/versions/details/<%=repoId%>/<%=verId%>" class="waves-effect waves-light btn red">Cancel</a>
+                <button type="submit" class="waves-effect waves-light btn green" id="sub">Bump Version!</button>
+            </div>
+        </form>
+    </div>
+
+</main>
+
+<!--  Scripts -->
+<script src="/js/jquery.iframetracker.js"></script>
+<script src="/materialize/js/materialize.min.js"></script>
+<script src="/js/versionBump.js"></script>
+
+</body>
+</html>

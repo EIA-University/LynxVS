@@ -44,13 +44,13 @@
     <div class="container">
         <div class="section">
             <div class="ppTitle">
-                <h2><%=repo.name%></h2>
+                <h2 class="title"><%=repo.name%></h2>
                 <% if (repo.gitHubVersion) { %>
-                    <span class="grey-text text-darken-2">
+                    <span class="grey-text text-darken-2 content">
                         v<%=repo.gitHubVersion.major%>.<%=repo.gitHubVersion.minor%>.<%=repo.gitHubVersion.patch%>
                     </span>
                 <% } %>
-                <span class="grey-text"><%= repo.remote %></span>
+                <span class="grey-text content"><%= repo.remote %></span>
             </div>
            <!--/-->
             <p class="flow-text"><%=repo.description%></p>
@@ -79,17 +79,18 @@
                         <div class="collapsible-header">
                             <b><%=version.major%>.<%=version.minor%>.<%=version.patch%></b>
                             <span><%= version.comment%></span>
-                            <% if (repo.gitHubVersion._id.toString().localeCompare(version._id.toString()) == 0) { %>
+                            <% if (repo.gitHubVersion) { %>
+                                <% if (repo.gitHubVersion._id.toString().localeCompare(version._id.toString()) == 0) { %>
                                 <span><i class="devicon-git-plain"></i></span>
+                                <% } %>
                             <% } %>
-
                         </div>
                         <div class="collapsible-body">
                             <span>
                                 <b class="grey-text">path: </b><%= version.path%>
                             </span>
                             <a href="/versions/details/<%=repo._id%>/<%=version._id%>">DETAILS</a>
-                            <a href="/versions/delete/<%=version._id%>" class="red-text">DELETE</a>
+                            <a href="/versions/delete/<%=repo._id%>/<%=version._id%>" class="red-text">DELETE</a>
                         </div>
                     </li>
                 <% }) %>

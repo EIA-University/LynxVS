@@ -84,6 +84,24 @@ repositorySchema.methods.getVersion = function (id, cb) {
     });
 };
 
+// adds a version to the versions array of a given repo
+repositorySchema.methods.addVersion = function (version, cb) {
+    this.model('Repository').findByIdAndUpdate(
+        {_id: this._id}, {$push: {versions: version}}, function (err, ver) {
+            return cb(err, ver);
+        }
+    );
+};
+
+
+// deletes a version from the versions array given an id
+repositorySchema.methods.deleteVersion = function (verId, cb) {
+    this.model('Repository').findByIdAndUpdate(
+        {_id: this._id}, {$pull: {versions: {_id: verId}}}, function (err, repo) {
+            return cb(err, repo);
+        }
+    );
+};
 
 module.exports = {
     schema: repositorySchema,
