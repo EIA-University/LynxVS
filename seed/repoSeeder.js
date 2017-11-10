@@ -9,21 +9,21 @@ var versions1 = [
         major: 1,
         minor: 0,
         patch: 0,
-        path: '/home/juandiego/Documents/',
+        path: '/home/juandiego/Desktop/test/folder',
         comment: "Release Inicial!"
     }),
     new Version({
         major: 1,
         minor: 0,
         patch: 1,
-        path: '/home/juandiego/Documents/pp',
+        path: '/home/juandiego/Desktop/test/mama',
         comment: 'Se arreglo el bug tal'
     }),
     new Version({
         major: 1,
         minor: 2,
         patch: 0,
-        path: '/home/juandiego/Documents/lpo',
+        path: '/home/juandiego/Desktop/test',
         comment: 'Nuevo feature'
     })
 ];
@@ -33,21 +33,21 @@ var versions2 = [
         major: 0,
         minor: 1,
         patch: 0,
-        path: '/home/juandiego/Desktop/',
+        path: '/home/juandiego/Desktop/hola/folder',
         comment: "Test1"
     }),
     new Version({
         major: 1,
         minor: 0,
         patch: 0,
-        path: '/home/juandiego/Documents/pp',
+        path: '/home/juandiego/Desktop/hola/mama',
         comment: 'First Release, stable'
     }),
     new Version({
         major: 2,
         minor: 0,
         patch: 0,
-        path: '/home/juandiego/Documents/lpo',
+        path: '/home/juandiego/Desktop/hola',
         comment: 'Upgraded for new ubuntu home, no GTK+'
     })
 ];
