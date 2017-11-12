@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title><%=title%></title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/materialize/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/devicon.css" type="text/css" rel="stylesheet" />
+
+    <!-- Scripts -->
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+<header>
+    <!-- NavBar -->
+    <% include partials/nav.ejs %>
+
+    <!-- Slide bar -->
+    <ul id="nav-mobile" class="side-nav fixed grey lighten-3">
+        <li class="logo"><a id="logo-container" href="/" class="brand-logo">
+                <object id="front-page-logo" type="image/svg+xml" data="/images/lynx.svg">Your browser does not support SVG</object></a>
+        </li>
+        <li class="bold active"><a class="waves-effect waves-orange">Home</a></li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li class="bold"><a class="collapsible-header  waves-effect waves-orange">Repositories</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="/repos/add">Add Repository</a></li>
+                            <li><a href="/repos/manage">Manage Repository</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<!-- Content -->
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col m6">
+                <h2>Accounts</h2>
+                <% if (gitAccount) { %>
+                    <div class="col s12">
+                        <div class="card horizontal">
+                            <div class="card-image">
+                                <img src="/icons/custom/gitsquare.svg">
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <p><b><%=gitAccount.username%></b></p>
+                                    <p>github Account</p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="/gitAccount/delete/<%=gitAccount._id%>">DELETE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <p>No git Account currently :(</p>
+                <% } %>
+            </div>
+            <div class="col m6">
+                <h2 class="center-align">GitHub Login</h2>
+                <div class="row">
+                    <form class="col s12" method="post" action="/addGitAccount">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="username" name="username" type="text" class="validate" required>
+                                <label for="username">Username</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col l11 s11 m11">
+                                <input id="password" type="password" name="password" class="validate" required>
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="input-field col l1 s1 m1">
+                                <i class="material-icons" id="passwordToggle">remove_red_eye</i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col m12">
+                                <p class="center-align">
+                                    <button class="btn btn-large waves-effect waves-light col s12 green"
+                                            type="submit">
+                                        Add Account!
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fab -->
+    <% include partials/fab.ejs %>
+</main>
+
+<!--  Scripts-->
+<script src="/materialize/js/materialize.min.js"></script>
+<script src="/js/gitSettings.js"></script>
+
+</body>
+</html>

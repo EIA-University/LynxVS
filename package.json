@@ -20,6 +20,7 @@
     "materialize-css": "^0.100.2",
     "mongoose": "^4.13.0",
     "morgan": "~1.9.0",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "simple-git": "^1.81.1"
   }
 }

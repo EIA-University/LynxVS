@@ -1,6 +1,5 @@
 (function($){
     $(function(){
-        $('.button-collapse').sideNav();
         $('.tap-target').tapTarget('open');
         $('.parallax').parallax();
     }); // end of document ready
