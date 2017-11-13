@@ -1,9 +1,9 @@
-var fs = require("fs-extra");
-var path = require('path');
+const fs = require("fs-extra");
+const path = require('path');
 
 // creates a directory <name> in path <src>
 function createDir(src, name) {
-    var dir = path.join(src, name);
+    const dir = path.join(src, name);
     fs.ensureDirSync(dir);
 }
 
@@ -14,7 +14,22 @@ function copyDir(src, dest) {
     }
 }
 
+// cleans a directory, WARNING! it deletes everything
+function cleanDir(src, cb) {
+    fs.emptyDir(src, err => {
+        console.log(src + " cleaned");
+        return cb(err);
+    });
+}
+
+// removes a directory, WARNING! it deletes everything
+function removeDir(src) {
+    fs.removeSync(src)
+}
+
 module.exports = {
     createDir: createDir,
-    copyDir: copyDir
+    copyDir: copyDir,
+    cleanDir: cleanDir,
+    removeDir: removeDir
 };

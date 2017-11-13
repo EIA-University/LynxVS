@@ -62,6 +62,15 @@
             <div id="treeArea" ></div>
             <% include partials/tree.ejs %>
         </div>
+
+        <% if (!isGit) { %>
+            <div class="section">
+                <div class="row center-align">
+                    <a class="btn btn-large waves-effect waves-light col black" href="/versions/uploadToGit/<%=repoId%>/<%=version._id%>">
+                        Publish To GitHub!</a>
+                </div>
+            </div>
+        <% } %>
     </div>
 
     <!-- Fab -->

@@ -4,6 +4,8 @@ var Repository = require('../models/repository').model; // db definition
 var Version = require('../models/version').model; // db definition
 var path = require('path');
 const fStructure = require('../packages/structure');
+const GitAccount = require('../models/gitAccount').model;
+const gitUploader = require('../packages/gitUploader');
 
 /* GET version details */
 router.get('/details/:repoId/:verId', function (req, res, next) {
@@ -115,6 +117,26 @@ router.get('/delete/:repoId/:verId', function (req, res, next) {
     });
 });
 
-
+/* GET upload to git */
+router.get('/uploadToGit/:repoId/:verId', function (req, res, next) {
+    Repository.findById(req.params.repoId, function (err, repo) {
+        if (err) throw err;
+        repo.getVersion(req.params.verId, function (err, ver) {
+            if (err) throw err;
+            GitAccount.getAccount(function (account) {
+                if (account === 0) {
+                    res.redirect('/gitSettings');
+                } else {
+                    gitUploader(account.username, account.password, repo.remote, repo.gitHubVersion.path, ver.path);
+                    repo.gitHubVersion = ver;
+                    repo.save(function () {
+                        console.log("Changed github repo");
+                        res.redirect("/repos/details/"+req.params.repoId);
+                    });
+                }
+            });
+        });
+    });
+});
 
 module.exports = router;
